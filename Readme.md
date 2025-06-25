@@ -7,11 +7,8 @@ API Flask de prédiction de risque de crédit, intégrée à un modèle Machine 
 ## 🌐 Démo
 
 - **Frontend** (GitHub Pages) : [➡️ https://sallamihamza.github.io/Data-science-projects/](https://sallamihamza.github.io/Data-science-projects/)
-<<<<<<< HEAD
+
 - **Backend API** (Railway) : [➡️ https://web-production-f2f2.up.railway.app/]
-=======
-- **Backend API** (Railway) : [➡️ https://TON-PROJET-BACKEND.up.railway.app](https://web-production-f2f2.up.railway.app)
->>>>>>> 77681488f5a03954273217cfdad5842a0fa297c6
 
 ---
 
