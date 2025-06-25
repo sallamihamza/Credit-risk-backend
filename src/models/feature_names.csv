@@ -1,0 +1,14 @@
+feature_name
+ancienneté_client
+montant_crédit
+nombre_retards
+durée_retard_moyen
+incident_paiement
+score_iMX
+secteur_activité_Healthcare
+secteur_activité_Manufacturing
+secteur_activité_Retail
+secteur_activité_Tech
+type_produit_Crédit Renouvelable
+type_produit_Prêt Immobilier
+type_produit_Prêt Personnel
