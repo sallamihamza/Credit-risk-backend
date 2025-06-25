@@ -11,12 +11,16 @@ gunicorn_logger = logging.getLogger('gunicorn.error')
 if gunicorn_logger.handlers:
     logger.handlers = gunicorn_logger.handlers
 
+
+
 # Ne pas changer cette ligne
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from src.models.user import db
 from src.routes.prediction import prediction_bp
 from src.prediction_service import predictor
+
+
 
 # Initialisation de l'application Flask
 app = Flask(
@@ -30,11 +34,16 @@ app = Flask(
 app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
 
 # Configuration CORS pour autoriser GitHub Pages
-CORS(app, origins="https://sallamihamza.github.io")
+
+
+CORS(app, origins=["https://sallamihamza.github.io", "http://localhost:5173"])
+
+
 
 # Configuration de la base de données SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 # Initialisation de la base de données
 with app.app_context():
@@ -44,16 +53,19 @@ with app.app_context():
 # Enregistrement du blueprint pour les routes API
 app.register_blueprint(prediction_bp, url_prefix='/api/v1')
 
+
 # Route principale (frontend SPA ou fallback)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
     static_folder_path = app.static_folder
+
     requested_path = os.path.join(static_folder_path, path)
     index_path = os.path.join(static_folder_path, 'index.html')
 
     if path and os.path.exists(requested_path):
         return send_from_directory(static_folder_path, path)
+
     elif os.path.exists(index_path):
         return send_from_directory(static_folder_path, 'index.html')
     else:
@@ -68,7 +80,9 @@ def serve(path):
                 'example': '/api/v1/example'
             },
             'documentation': 'Consultez /api/v1/example pour un exemple de requête'
+
         })
+
 
 # Gestion des erreurs 404
 @app.errorhandler(404)
@@ -86,6 +100,7 @@ def not_found(error):
         ]
     }), 404
 
+
 # Gestion des erreurs 500
 @app.errorhandler(500)
 def internal_error(error):
@@ -94,6 +109,7 @@ def internal_error(error):
         'error_code': 'INTERNAL_ERROR',
         'message': 'Erreur interne du serveur'
     }), 500
+
 
 # Chargement du modèle ML
 def initialize_model():
